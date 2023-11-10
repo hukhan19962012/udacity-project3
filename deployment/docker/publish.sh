@@ -1,5 +1,5 @@
 #!/bin/bash
 
-echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+echo "Cuong13032004" | docker login -u "cuonglt300499@gmail.com" --password-stdin
 
 docker-compose -f deployment/docker/docker-compose-build.yaml push

@@ -7,5 +7,7 @@ export POSTGRES_DB=postgres
 export AWS_BUCKET=my-udacity-project-3-buket
 export AWS_REGION=us-east-1
 export AWS_PROFILE=default
+export DOCKER_USERNAME=cuonglt300499@gmail.com
+export DOCKER_PASSWORD=Cuong13032004
 export JWT_SECRET=testing
 export URL=http://localhost:8100
