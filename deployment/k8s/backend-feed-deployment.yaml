@@ -15,7 +15,7 @@ spec:
         service: backend-feed
     spec:
       containers:
-      - image: cuonglt/udagram-api-feed
+      - image: cuonglt8/udagram-api-feed
         name: backend-feed
         imagePullPolicy: Always  
         resources:
