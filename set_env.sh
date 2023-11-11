@@ -1,7 +1,7 @@
 # This file is used for convenience of local development.
 # DO NOT STORE YOUR CREDENTIALS INTO GIT
 export POSTGRES_USERNAME=myAdmin
-export POSTGRES_PASSWORD=12345678
+export POSTGRES_PASSWORD=123456aA
 export POSTGRES_HOST=postgres.cbcakv7oybu8.us-east-1.rds.amazonaws.com
 export POSTGRES_DB=postgres
 export AWS_BUCKET=my-udacity-project-3-buket
