@@ -90,61 +90,22 @@ Launch the frontend app locally.
 
 ![Alt text](image-1.png)
 
-.7 Laravel zero downtime deployment
-Quick guide
-use cmd to go to folder deployment/k8s
+.7 zero downtime deployment
+Deploy to Kubernetes Cluster
+Navigate to the deployment/k8s/ directory.
+Modify the configuration values in aws-secret.yaml, env-configmap.yaml, env-secret.yaml.
+Set the correct docker hub username in the backend-feed-deployment.yaml, backend-user-deployment.yaml, frontend-deployment.yaml, reverseproxy-deployment.yaml files.
+Repeat step 3 for the docker-compose-build.yaml and docker-compose.yaml files in the udacity-c3-deployment/docker/ directory.
+Deploy to Kubernetes cluster with kubectl apply -f {file_name}.yaml for each file in this directory.
 
-now set up kube config for cluster by this cmd
 
-aws eks update-kubeconfig --region <region-code> --name <my-cluster>
+.8 CloudWatch
+Attach the CloudWatchAgentServerPolicy policy to the udagram-host IAM role
 
-then apply all these cmd
+Run the script:
 
-kubectl apply -f aws-secret.yaml
-kubectl apply -f env-secret.yaml
-kubectl apply -f env-configmap.yaml
-kubectl apply -f backend-feed-deployment.yaml
-kubectl apply -f backend-feed-service.yaml
-kubectl apply -f backend-user-deployment.yaml
-kubectl apply -f backend-user-service.yaml
-kubectl apply -f frontend-deployment.yaml
-kubectl apply -f frontend-service.yaml
-kubectl apply -f reverseproxy-deployment.yaml
-kubectl apply -f reverseproxy-service.yaml
-
-Expose External IP
-Refer to this tutorial to expose an External IP address of the frontend service.
-
-## Check the deployment names and their pod status
-kubectl get deployments
-## Create a Service object that exposes the frontend deployment
-## The command below will ceates an external load balancer and assigns a fixed, external IP to the Service.
-kubectl expose deployment frontend --type=LoadBalancer --name=publicfrontend
-## Repeat the process for the *reverseproxy* deployment. 
-## Check name, ClusterIP, and External IP of all deployments
-kubectl get services 
-kubectl get pods # It should show the STATUS as Running
-
-Update the Environment Variables and Re-Deploy the Application
-Once both the services - frontend and reverseproxy - have an External IP, change the API endpoints in the following places locally.
-
-Update udagram-frontend/src/environments/environment.ts file - Replace the keyword localhost in the http://localhost:8080/api/v0 string with the External-IP of the reverseproxy deployment. For example,
-## Assuming http://ae0c61849655c46e581aa91d3c03386d-513419455.us-east-1.elb.amazonaws.com is the External-IP of the *reverseproxy* service.
-apiHost: 'http://ae0c61849655c46e581aa91d3c03386d-513419455.us-east-1.elb.amazonaws.com:8080/api/v0'
-Here, we are using the External-IP to connect the frontend to the reverseproxy.
-
-Update udagram-frontend/src/environments/environment.prod.ts file in the same way as done for the environment.ts file.
-
-Build a new frontend image, and push it to the Dockerhub. While building a new image, it is recommended to use a different tag each time, as shown in the example below:
-
-## Run these commands from the /udagram-frontend directory
-docker build . -t [Dockerhub-username]/udagram-frontend:v6
-docker push [Dockerhub-username]/udagram-frontend:v6
-Next, re-deploy the new frontend image to the k8s cluster. You will have to update the image tag in the frontend-deployment.yaml file.
-## Run these commands from the /udagram-deployment directory
-## Rolling update the containers of "frontend" deployment
-kubectl set image deployment frontend frontend=[Dockerhub-username]/udagram-frontend:v6
-Check your deployed application at the External IP of your publicfrontend service.
+./deployment/k8s/deploy_fluentd.sh
+Application, services, and container logs are now sent to CloudWatch.
 
 
 
