@@ -84,3 +84,9 @@ Launch the frontend app locally.
     ```
 4. `set_env.sh` is really for your backend application. Frontend applications have a different notion of how to store configurations. Configurations for the application endpoints can be configured inside of the `environments/environment.*ts` files.
 5. In `set_env.sh`, environment variables are set with `export $VAR=value`. Setting it this way is not permanent; every time you open a new terminal, you will have to run `set_env.sh` to reconfigure your environment variables. To verify if your environment variable is set, you can check the variable with a command like `echo $POSTGRES_USERNAME`.
+
+
+.6 CI/CD Tool: Travis-ci.com,   just login recommend using github account, connect to repository that you want to autobuild by setting up in the travis.yml, in my case I build in Docker container, when build complete and success will be like image below:
+
+![Alt text](image-1.png)
+
